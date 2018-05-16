@@ -16,6 +16,15 @@ import numpy as np
 import tensorflow as tf
 
 
+def huber_loss(labels, predictions, data=14.0):
+    residual = tf.abs(labels - predictions)
+
+    def f1(): return 0.5 * tf.square(residual)
+
+    def f2(): return delta * residual - 0.5 * tf.square(delta)
+    return tf.cond(residual < de, f1, f2)
+
+
 def read_birth_life_data(filename):
     """
     Read in birth_life_2010.txt and return:
